@@ -6,8 +6,6 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = "secret123"
 
-def get_db():
-    return sqlite3.connect("users.db")
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -15,37 +13,15 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        conn = get_db()
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM users WHERE username=? AND password=?",
-                       (username, password))
-        user = cursor.fetchone()
-        conn.close()
+       return render_template("dashbord.html")
 
-        if user:
-            session["user"] = username
-            return redirect("/dashboard")
-        else:
-            return "Login Failed!"
-
-    return render_template("login.html")
-
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/register.html", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
 
-        conn = get_db()
-        cursor = conn.cursor()
-        cursor.execute("INSERT INTO users (username,password) VALUES (?,?)",
-                       (username, password))
-        conn.commit()
-        conn.close()
-
-        return redirect("/")
-
-    return render_template("register.html")
+          return render_template("dashbord.html")
 
 @app.route("/dashboard")
 def dashboard():
