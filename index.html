@@ -1,9 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My First Project</title>
-</head>
-<body>
-    <h1>Welcome to My First GitHub Project</h1>
-</body>
-</html>
+<h2>My Business</h2>
+<form method="POST">
+  <input name="name" placeholder="Product Name" required>
+  <input name="price" placeholder="Price" required>
+  <button>Add</button>
+</form>
+
+<ul>
+{% for p in products %}
+<li>{{p.name}} - ₹{{p.price}}</li>
+{% endfor %}
+</ul>
