@@ -13,7 +13,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-       return render_template("dashbord.html")
+    return render_template("dashbord.html")
 
 @app.route("/register.html", methods=["GET", "POST"])
 def register():
@@ -21,7 +21,7 @@ def register():
         username = request.form["username"]
         password = request.form["password"]
 
-          return render_template("dashbord.html")
+     return render_template("dashbord.html")
 
 @app.route("/dashboard")
 def dashboard():
