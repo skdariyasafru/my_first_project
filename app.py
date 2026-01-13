@@ -1,28 +1,21 @@
-from flask import Flask, render_template, request, redirect
-from flask_sqlalchemy import SQLAlchemy
+import sqlite3
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-db = SQLAlchemy(app)
+def insert_user(username, password):
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO users (username, password) VALUES (?,?)",
+                   (username, password))
+    conn.commit()
+    conn.close()
 
-class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    price = db.Column(db.Integer)
+def view_users():
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users")
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
 
-@app.route("/", methods=["GET","POST"])
-def index():
-    if request.method == "POST":
-        p = Product(name=request.form['name'], price=request.form['price'])
-        db.session.add(p)
-        db.session.commit()
-    return render_template("index.html", products=Product.query.all())
-
-@app.route("/admin")
-def admin():
-    return render_template("admin.html", products=Product.query.all())
-
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
+# Example
+insert_user("admin", "1234")
+print(view_users())
