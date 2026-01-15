@@ -1,24 +1,24 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>My Database Website</title>
 </head>
 <body>
-<h2>User Login</h2>
+    <h1>Users List</h1>
 
-<form method="POST">
-    <input type="text" name="username" placeholder="Username" required><br><br>
-    <input type="password" name="password" placeholder="Password" required><br><br>
-    <button type="submit">Login</button>
-</form>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
 
-<h3>Register</h3>
-<form action="/register" method="POST">
-    <input type="text" name="username" placeholder="New Username" required><br><br>
-    <input type="password" name="password" placeholder="New Password" required><br><br>
-    <button type="submit">Register</button>
-</form>
+        {% for user in users %}
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
 </body>
 </html>
