@@ -23,7 +23,23 @@ def register_user():
     name = request.form["name"]
     email = request.form["email"]
     password = request.form["password"]
+    
+    conn = get_db_connection()
+    cur = conn.cursor()
 
+    cur.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                username TEXT,
+                email TEXT,
+                password TEXT
+            )
+        """)
+
+    
+    conn.commit()
+    cur.close()
+    conn.close()
+    
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute("INSERT INTO users (name,email,password) VALUES (%s,%s,%s)",
